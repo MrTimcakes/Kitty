@@ -8,6 +8,7 @@
       "web"
     ],
     "version": "1.0.0",
+    "primaryColor": "#FF7800",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -24,6 +25,31 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "githubUrl": "https://github.com/MrTimcakes/Kitty",
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#FF7800"
+    },
+    "androidNavigationBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#FF7800"
+    },
+    "packagerOpts": {
+      "config": "metro.config.js",
+      "sourceExts": [
+        "expo.ts",
+        "expo.tsx",
+        "expo.js",
+        "expo.jsx",
+        "ts",
+        "tsx",
+        "js",
+        "jsx",
+        "json",
+        "wasm",
+        "svg"
+      ]
     }
   }
 }
