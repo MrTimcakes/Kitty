@@ -1,11 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Linking, Image, TextInput, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Linking, Image, TextInput, TouchableOpacity, ActivityIndicator } from "react-native";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
+import * as Location from 'expo-location';
+
+import TitlePath from 'kitty/assets/SVG/TitlePath';
+
+import Colors from 'kitty/constants/Colors';
+import GPSIcon from 'kitty/assets/SVG/GPSIcon';
+
+import { withFirebaseHOC } from 'kitty/utilities/Firebase'
 
 function SelectPhotoScreen({firebase, navigation, route}){
-  const [image, setImage] = useState(route.params?.image ?? null);
-  const [caption, setCaption] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [image, setImage] = useState(null);
+  const [name, setName] = useState(null);
+  const [location, setlocation] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => { // On Focus set state to params
+      // setImage(route.params?.image ?? null);
+      // setlocation(route.params?.location ?? null)
+      console.log("Focus")
+      console.log( route.params?.location );
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
+  const GoBack = () => {
+    setImage(null);
+    setName(null);
+    setlocation(null);
+    navigation.goBack();
+  }
 
   const _getPermission = async (permission) => {
     let { status } = await Permissions.askAsync(permission);
@@ -38,29 +66,76 @@ function SelectPhotoScreen({firebase, navigation, route}){
     }
   };
 
+  const _LocateMe = async (permission) => {
+    let { status } = await Location.requestPermissionsAsync();
+    if (status !== 'granted') {
+      // setErrorMsg('Permission to access location was denied');
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    setlocation( oldRegion => { return {...oldRegion, latitude: location.coords.latitude, longitude: location.coords.longitude} } )
+  }
+
   const handleUpload = () =>{
-    if(image && caption){
-      firebase.post({desc: caption.trim(), image: image.uri})
-      navigation.goBack();
+    if(image && name){
+      setSubmitting(true);
+      firebase.post({name: name.trim(), image: image.uri, location: location})
+      .then(e => {
+        setSubmitting(false);
+        GoBack();
+      });
     }else{
-      alert('Need valid description!');
+      alert('Need valid Name!');
     }
   }
   // User has uploaded an image, ask to add a caption
   if(image){
     navigation.setOptions({ headerRight: () => ( <TouchableOpacity onPress={handleUpload}><Text style={{marginRight:10,fontSize:16}}>SHARE</Text></TouchableOpacity> ) })
     return(
-      <View style={{ padding: 10, flexDirection: 'row' }}>
-        <Image
-          source={{ uri: image.uri }}
-          style={{ resizeMode: 'contain', aspectRatio: 1, width: 72 }}
-        />
-        <TextInput
-          multiline
-          style={{ flex: 1, paddingHorizontal: 16 }}
-          placeholder="Add a neat description..."
-          onChangeText={setCaption}
-        />
+      <View style={{backgroundColor: '#444', flex:1}}>
+        <View style={{alignItems: 'center', justifyContent: 'flex-end', height: 220}}>
+          <TitlePath width='70%' />
+        </View>
+
+        <View style={{ padding: 10}} >
+          <View style={{ padding: 10, flexDirection: 'row' }}>
+            <Image
+              source={{ uri: image.uri }}
+              style={{ resizeMode: 'contain', aspectRatio: 1, width: 72 }}
+            />
+            <TextInput
+              multiline
+              style={{ flex: 1, paddingHorizontal: 16, color: '#fff' }}
+              placeholder="Add a name..."
+              onChangeText={setName}
+            />
+          </View>
+          <TextInput
+            placeholder="Latitude..."
+            value={location?.latitude.toString()}
+            onChangeText={newLat=>{ setlocation(prevState => { return {...prevState, latitude: Number(newLat) }; }) }}
+          />
+          <TextInput
+            placeholder="Longitude..."
+            value={location?.longitude.toString()}
+            onChangeText={newLong=>{ setlocation(prevState => { return {...prevState, longitude: Number(newLong) }; }) }}
+          />
+            
+        </View>
+
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+          {submitting ? (
+            <ActivityIndicator />
+          ) : (
+          <TouchableOpacity onPress={handleUpload} style={{backgroundColor: Colors.color4, width: '90%', height: 45, borderRadius: 15, justifyContent: 'center', alignItems: 'center'}}>
+            <Text style={{color: '#fff', fontSize: 28}}>Upload!</Text>
+          </TouchableOpacity>
+          )}
+        </View>
+
+        <TouchableOpacity style={{backgroundColor:Colors.color4, position: 'absolute', right: 20, bottom: 20, width: 50, height: 50, borderRadius: 25, justifyContent: 'center', alignItems: 'center'}} onPress={_LocateMe}>
+          <GPSIcon width={30} height={30} />
+        </TouchableOpacity>
       </View>
     )
   }
@@ -92,4 +167,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SelectPhotoScreen;
+export default withFirebaseHOC(SelectPhotoScreen);
