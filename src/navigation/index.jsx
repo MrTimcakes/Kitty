@@ -39,6 +39,7 @@ function AppContainer(P) {
       require('kitty/assets/images/HandTap.jpg'),
       require('kitty/assets/images/Butterfly.jpg'),
       require('kitty/assets/images/StickBoi.jpg'),
+      require('kitty/assets/images/Pin.png'),
     ]);
 
     const fontAssets = cacheFonts([
