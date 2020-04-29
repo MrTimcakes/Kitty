@@ -77,17 +77,20 @@ const Firebase = {
     const path = `${collectionName}/${this.uid}/${imgName}.jpg`;
     return this.uploadPhoto(uri, path);
   },
-  async post({ desc, image: localUri }) {
+  async post({ name, image: localUri, location }) {
     try {
       const { uri: reducedImage, width, height } = await shrinkImageAsync( localUri, );
       const postID = uuid.v4();
       const remoteUri = await this.uploadPhotoAsync(reducedImage, 'userPosts', postID);
       const postData = {
-        description: desc,
+        name: name,
+        location: location,
         authorUid: this.uid,
         authorUsername: this.username,
         postId: postID,
         timestamp: this.timestamp,
+        created: this.timestamp,
+        lastSeen: this.timestamp,
         imageWidth: width,
         imageHeight: height,
         image: remoteUri,
