@@ -30,7 +30,8 @@
     "expo-linear-gradient": "~8.1.0",
     "expo-location": "~8.1.0",
     "expo-permissions": "~8.1.0",
-    "expo-web-browser": "~8.1.0",
+    "expo-web-browser": "~8.2.0",
+    "firebase": "7.9.0",
     "formik": "^2.1.4",
     "javascript-time-ago": "^2.0.7",
     "react": "~16.9.0",
@@ -42,6 +43,7 @@
     "react-native-safe-area-context": "0.7.3",
     "react-native-screens": "~2.2.0",
     "react-native-svg": "11.0.1",
+    "react-native-svg-transformer": "^0.14.3",
     "react-native-web": "~0.11.7",
     "uuid": "3.4.0",
     "yup": "^0.28.4"
