@@ -75,7 +75,7 @@ function BottomTabBar({ state, descriptors, navigation }) {
     }
   
     return(
-      <TouchableHighlight style={ MFS } onPress={onPress} activeOpacity={0.9} underlayColor={Colors.color1} >
+      <TouchableHighlight style={ MFS } onPress={onPress} activeOpacity={0.9} underlayColor={Colors.color4} >
         <MFIcon />
       </TouchableHighlight>
     )
@@ -85,7 +85,7 @@ function BottomTabBar({ state, descriptors, navigation }) {
     return (
       <Svg width={TabBarWidth} height={TabBarHeight} viewBox={`0 0 ${ViewBox.width} ${ViewBox.height}`} style={{backgroundColor:'transparent'}}>
         <Defs>
-          <RadialGradient id='GlowGradient' cx={128.03} cy={131.304} r={127.97} gradientTransform='matrix(1 -.002 -.002 -1 .294 262.894)' gradientUnits='userSpaceOnUse'><Stop offset={0} stopColor='#5663ff' /><Stop offset={0.498} stopColor='#5663ff' stopOpacity={0.502} /><Stop offset={0.879} stopColor='#5663ff' stopOpacity={0.051} /><Stop offset={1} stopColor='#5663ff' stopOpacity={0} /></RadialGradient>
+          <RadialGradient id='GlowGradient' cx={128.03} cy={131.304} r={127.97} gradientTransform='matrix(1 -.002 -.002 -1 .294 262.894)' gradientUnits='userSpaceOnUse'><Stop offset={0} stopColor='#FF7800' /><Stop offset={0.498} stopColor='#FF7800' stopOpacity={0.502} /><Stop offset={0.879} stopColor='#FF7800' stopOpacity={0.051} /><Stop offset={1} stopColor='#FF7800' stopOpacity={0} /></RadialGradient>
           <RadialGradient id='ShadowCornerGradient' cx={0.5} cy={0.5} r={0.5} gradientUnits='objectBoundingBox'><Stop offset={0} stopOpacity={0.102} /><Stop offset={0.038} stopOpacity={0.102} /><Stop offset={0.268} stopOpacity={0.102} /><Stop offset={0.423} stopOpacity={0.031} /><Stop offset={0.661} stopOpacity={0} /><Stop offset={1} stopOpacity={0} /></RadialGradient>
           <LinearGradient id='ShadowTopGradient' x1={0.5} x2={0.5} y2={1} gradientUnits='objectBoundingBox'><Stop offset={0} stopOpacity={0} /><Stop offset={0.17} stopOpacity={0} /><Stop offset={0.289} stopOpacity={0.031} /><Stop offset={0.368} stopOpacity={0.102} /><Stop offset={1} stopOpacity={0.102} /></LinearGradient>
           <ClipPath id='clip-path'><Rect id="TopRightMask" width="77" height="256" transform="translate(1048)" fill="#fff"/></ClipPath>
@@ -101,7 +101,7 @@ function BottomTabBar({ state, descriptors, navigation }) {
   
           <G id='MultiFunc' transform='translate(458.818 .2)'>
             <Circle id='Glow' cx={128} cy={128} r={128} fill='url(#GlowGradient)' />
-            {/* <Path id='MultiFuncPath' fill='#5663ff' d='M31.787,87.332,87.332,31.787a44.86,44.86,0,0,1,63.537,0l55.545,55.545a44.86,44.86,0,0,1,0,63.537l-55.545,55.545a44.86,44.86,0,0,1-63.537,0L31.787,150.868A44.86,44.86,0,0,1,31.787,87.332Z' transform='translate(7.884 -.2)' /> */}
+            {/* <Path id='MultiFuncPath' fill='#FF7800' d='M31.787,87.332,87.332,31.787a44.86,44.86,0,0,1,63.537,0l55.545,55.545a44.86,44.86,0,0,1,0,63.537l-55.545,55.545a44.86,44.86,0,0,1-63.537,0L31.787,150.868A44.86,44.86,0,0,1,31.787,87.332Z' transform='translate(7.884 -.2)' /> */}
           </G>
         </G>
       </Svg>
@@ -214,7 +214,7 @@ const TB = StyleSheet.create({
   },
   MultiFunc: {
     // backgroundColor: '#FFAA0080',
-    backgroundColor: Colors.color2,
+    backgroundColor: Colors.color4,
     position: 'absolute',
     borderRadius: 15,
     transform: [{ rotate: '45deg'}],
