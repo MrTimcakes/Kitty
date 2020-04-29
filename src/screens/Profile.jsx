@@ -15,15 +15,34 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import TimeAgo from 'javascript-time-ago';
+const timeAgo = new TimeAgo('en-US') // Initialise TimeAgo
 
+import Colors from 'kitty/constants/Colors';
 import { withFirebaseHOC } from 'kitty/utilities/Firebase'
 
-function ListItem({image, name}){
+function ListItem({image, name, lastSeen, created}){
   return (
-    <View>
-      <Text>
-        {name}
-      </Text>
+    <View style={{flexDirection: 'row', margin: 5}}>
+      <Image style={{width: 75, resizeMode: 'contain', aspectRatio: 1,}} source={{uri: image}} />
+      <View style={{justifyContent: 'center'}}>
+        <Text style={{color: Colors.color4, fontSize: 22}}>{name}</Text>
+        <Text style={{color: Colors.color3, fontSize: 14}}>First Seen: {timeAgo.format(created)}</Text>
+        <Text style={{color: Colors.color3, fontSize: 14}}>Last Seen: {timeAgo.format(lastSeen)}</Text>
+      </View>
+    </View>
+  )
+}
+
+function CardItem({image, name, lastSeen, created}){
+  return (
+    <View style={{flexDirection: 'column', margin: 5}}>
+      <Image style={{width: '100%', resizeMode: 'contain', aspectRatio: 1,}} source={{uri: image}} />
+      <View style={{justifyContent: 'center'}}>
+        <Text style={{color: Colors.color4, fontSize: 22}}>{name}</Text>
+        <Text style={{color: Colors.color3, fontSize: 14}}>First Seen: {timeAgo.format(created)}</Text>
+        <Text style={{color: Colors.color3, fontSize: 14}}>Last Seen: {timeAgo.format(lastSeen)}</Text>
+      </View>
     </View>
   )
 }
@@ -60,6 +79,7 @@ function Settings({firebase, navigation}){
           data={kittyData}
           renderItem={({ item }) => <ListItem key={item.postId} {...item} />}
           keyExtractor={item => item.postId}
+          ListFooterComponent={ListFooter}
         />
       </View>
     )
@@ -68,8 +88,20 @@ function Settings({firebase, navigation}){
   const CardView = () => {
     return (
       <View>
+        <FlatList
+          data={kittyData}
+          renderItem={({ item }) => <CardItem key={item.postId} {...item} />}
+          keyExtractor={item => item.postId}
+          ListFooterComponent={ListFooter}
+        />
+      </View>
+    )
+  }
 
-        <Text>Hey</Text>
+  const ListFooter = () =>{
+    return (
+      <View style={{height:120}}>
+
       </View>
     )
   }
