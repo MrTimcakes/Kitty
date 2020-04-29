@@ -98,44 +98,15 @@ function Signup({firebase, navigation}){
     .then( (e) => firebase.auth().currentUser.updateProfile({ displayName: username }) ) // Set Username
     .then( (e) => {
       const userData = {
-        badges: [],
-        bio: null,
-        cookingSkill: 0.0,
         username: username,
         profilePhoto: null,
         uid: firebase.auth().currentUser.uid,
-        xp: 0.0,
         followers: 0,
         following: 0,
       };
       return firebase.createNewUser(userData) // Create user in database
     } )
     .catch((error)=>{actions.setFieldError('general', error.message)})
-    // .finally(()=>{
-    //   if(actions){actions.setSubmitting(false)}
-    // });
-
-
-    // .then( user => {
-    //   const userData = {
-    //     badges: [],
-    //     bio: null,
-    //     cookingSkill: 0.0,
-    //     username: username,
-    //     profilePhoto: null,
-    //     uid: user.uid,
-    //     xp: 0.0,
-    //     followers: 0,
-    //     following: 0,
-    //   };
-    //   console.log(userData);
-    //   return firebase.createNewUser(userData) // Create user in database
-    // } )
-    // .catch((error)=>{actions.setFieldError('general', error.message)})
-    // .finally(()=>{
-    //   if(actions){actions.setSubmitting(false)}
-    // });
-
   }
 
   return (
