@@ -17,7 +17,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { withFirebaseHOC } from 'kitty/utilities/Firebase'
 
-function Settings({firebase}){
+function Settings({firebase, navigation}){
+
+  useEffect(() => { return navigation.addListener("MultiFuncPress", MuliFuncAction); }, [navigation]); // Add listener for MultiFunction Button
+  const MuliFuncAction = () => {
+    if( !navigation.isFocused() ){return} // If not focused do nothing
+    navigation.navigate("Add Post");
+  }
+
   return (
     <SafeAreaView>
       
