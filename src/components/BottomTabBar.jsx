@@ -200,7 +200,7 @@ const TB = StyleSheet.create({
   },
   ActiveRegion:{
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     // position: 'absolute',
     width: '100%',
