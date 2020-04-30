@@ -122,6 +122,7 @@ function Settings({firebase, navigation, route}){
             onPress={(e)=>{
               setPanelKitty(kitty);
               setPanelOpen(true);
+              setNewPostLoc(null);
             }}
           >
             <Callout>
