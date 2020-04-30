@@ -99,7 +99,7 @@ const Firebase = {
       };
 
       firebase.firestore().collection('users').doc(this.uid).collection('posts').doc(postID).set(postData);
-      firebase.firestore().collection('globalPosts').doc(postID).set(postData); // Upload to the global post list TEMPORARY
+      // firebase.firestore().collection('globalPosts').doc(postID).set(postData); // Upload to the global post list TEMPORARY
     } catch ({ message }) {
       alert(message);
     }
