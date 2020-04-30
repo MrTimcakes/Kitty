@@ -19,8 +19,8 @@ function SelectPhotoScreen({firebase, navigation, route}){
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => { // On Focus set state to params
-      if(route.params.image){setImage(route.params.image)}
-      if(route.params.location){setlocation(route.params.location)}
+      if(route.params?.image){setImage(route.params.image)}
+      if(route.params?.location){setlocation(route.params.location)}
     });
 
     return unsubscribe;
