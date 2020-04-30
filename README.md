@@ -1,8 +1,10 @@
 # Kitty
 >View on [Expo](https://expo.io/@mrtimcakes/kitty)
 
-Kitty is a cross-platform mobile app developed for a university module under the theme of mental health
+Kitty is a cross-platform mobile app developed for a university module under the theme of mental health.
+
 The app is designed to be an extra incentive for the user to get out of bed in the morning and walk along their commute.
+
 Kitty allows users to add images of local animals they have seen, animals are added to a personal collection which is saved with a location to be later seen on a map
 
 
