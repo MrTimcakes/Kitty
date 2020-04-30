@@ -9,6 +9,7 @@ import MapScreen from '../screens/Map';
 import ProfileScreen from '../screens/Profile';
 import AddPostScreen from '../screens/AddPost';
 import SettingsScreen from '../screens/Settings';
+import CreditsScreen from '../screens/Credits';
 import SignoutScreen from '../screens/auth/Signout';
 
 const Tab = createBottomTabNavigator();
@@ -29,6 +30,7 @@ function App() {
       <Drawer.Screen name="App" component={TabContainer}/>
       <Drawer.Screen name="Add Post" component={AddPostScreen}/>
       <Drawer.Screen name="Settings" component={SettingsScreen}/>
+      <Drawer.Screen name="Credits" component={CreditsScreen}/>
       <Drawer.Screen name="Sign Out" component={SignoutScreen}/>
     </Drawer.Navigator>
   );
