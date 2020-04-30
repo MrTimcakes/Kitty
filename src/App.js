@@ -4,9 +4,9 @@ import AppContainer from 'kitty/navigation'
 import Firebase, { FirebaseProvider } from 'kitty/utilities/Firebase'
 
 
-import JavascriptTimeAgo from 'javascript-time-ago'
+import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
-JavascriptTimeAgo.locale(en)
+TimeAgo.addLocale(en);
 
 export default function App() {
   return (
