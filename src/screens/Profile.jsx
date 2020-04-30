@@ -16,12 +16,12 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import TimeAgo from 'javascript-time-ago';
-const timeAgo = new TimeAgo('en-US') // Initialise TimeAgo
 
 import Colors from 'kitty/constants/Colors';
 import { withFirebaseHOC } from 'kitty/utilities/Firebase'
 
 function ListItem({image, name, lastSeen, created}){
+  const timeAgo = new TimeAgo('en-US') // Initialise TimeAgo
   return (
     <View style={{flexDirection: 'row', margin: 5}}>
       <Image style={{width: 75, resizeMode: 'contain', aspectRatio: 1,}} source={{uri: image}} />
@@ -35,6 +35,7 @@ function ListItem({image, name, lastSeen, created}){
 }
 
 function CardItem({image, name, lastSeen, created}){
+  const timeAgo = new TimeAgo('en-US') // Initialise TimeAgo
   return (
     <View style={{flexDirection: 'column', margin: 5}}>
       <Image style={{width: '100%', resizeMode: 'contain', aspectRatio: 1,}} source={{uri: image}} />
