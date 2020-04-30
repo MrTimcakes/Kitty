@@ -58,16 +58,11 @@ function Settings({firebase, navigation, route}){
   }, []);
 
   const onRegionChangeComplete = (newRegion) => {
-    console.log("newRegion =>", {"latitude": newRegion.latitude, "longitude": newRegion.longitude})
     setRegion(newRegion);
   }
   const onRegionPress = (e) => {
-    console.log(e.nativeEvent.coordinate)
     setNewPostLoc(e.nativeEvent.coordinate);
     if(newPostMarker){newPostMarker.showCallout();}
-    // console.log("\n");
-    // console.log(region);
-    // console.log("kitty data =>", kittyData)
   }
 
   const _getPermission = async (permission) => {
@@ -80,14 +75,12 @@ function Settings({firebase, navigation, route}){
   }
 
   const _takePhoto = async () => {
-    console.log("TakePhoto state =>", {"latitude": region.latitude, "longitude": region.longitude})
     const status = await _getPermission(Permissions.CAMERA);
     if (status) {
       const result = await ImagePicker.launchCameraAsync({ allowsEditing: true });
       if (!result.cancelled) {
-        console.log("TakePhoto sent =>", {"latitude": region.latitude, "longitude": region.longitude})
-        // navigation.navigate("Add Post", { image: result, location: {"latitude": region.latitude, "longitude": region.longitude} });
-        navigation.navigate("Add Post", { image: result });
+        navigation.navigate("Add Post", { image: result, location: {"latitude": region.latitude, "longitude": region.longitude} });
+        // navigation.navigate("Add Post", { image: result });
       }
     }
   };
@@ -99,8 +92,8 @@ function Settings({firebase, navigation, route}){
     }
 
     let location = await Location.getCurrentPositionAsync({});
-    setRegion( oldRegion => { return {...oldRegion, latitude: location.coords.latitude, longitude: location.coords.longitude} } )
-    console.log(location.coords.latitude)
+    setRegion( oldRegion => { return {...oldRegion, "latitude": location.coords.latitude, "longitude": location.coords.longitude, "latitudeDelta": 0.005, "longitudeDelta": 0.005} } )
+    // console.log(location.coords.latitude)
   }
 
   useEffect(() => { return navigation.addListener("MultiFuncPress", MuliFuncAction); }, [navigation]); // Add listener for MultiFunction Button
@@ -141,15 +134,15 @@ function Settings({firebase, navigation, route}){
           </Marker>
         ))}
 
-        {newPostLoc && // New post marker
+        {/* {newPostLoc && // New post marker */}
           <Marker
-            coordinate={newPostLoc}
+            coordinate={newPostLoc ? newPostLoc : { "latitude": 0, "longitude": 0 }}
             image={require('kitty/assets/images/Pin.png')}
             ref={ref => {
               setNewPostMarker(ref);
             }}
-          >
-            <Callout>
+            >
+            <Callout onPress={()=>{setNewPostLoc(null);navigation.navigate("Add Post", { location: newPostLoc });}} >
               <View>
                 <Text>
                   Add kitty
@@ -157,7 +150,7 @@ function Settings({firebase, navigation, route}){
               </View>
             </Callout>
           </Marker>
-        }
+        {/* } */}
       </MapView>
       <View style={{ position: 'absolute', left: 0, top: 0, opacity: 0.0, height: Dimensions.get('window').height, width: 10, }}></View>{/* A View 10 wide to allow to swipe out drawer */}
       <TouchableOpacity style={{backgroundColor:Colors.color4, position: 'absolute', right: 20, bottom: 100, width: 50, height: 50, borderRadius: 25, justifyContent: 'center', alignItems: 'center'}} onPress={_LocateMe}>
